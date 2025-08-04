@@ -1,31 +1,19 @@
 package com.trading.demo.service;
 
+import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.ReadContext;
 import com.trading.demo.model.CoinDTO;
 import com.trading.demo.response.ApiResponse;
-import com.trading.demo.response.FunctionResponse;
 
 @Service
 public class ChatBotServiceImpl implements ChatBotService {
-
-    @Value("${gemini.api.key}")
-    private String API_KEY;
-
-    @Value("${gemini.api.url}")
-    private String url;
 
     private double convertToDouble(Object value) {
         if (value instanceof Integer) {
@@ -35,25 +23,27 @@ public class ChatBotServiceImpl implements ChatBotService {
         } else if (value instanceof Double) {
             return (Double) value;
         } else {
-            throw new IllegalArgumentException("Unsupported data type: " + value.getClass().getName());
+            throw new IllegalArgumentException("Unsupported data type: " +
+                    value.getClass().getName());
         }
     }
 
     public CoinDTO makeApiRequest(String currencyName) {
-        System.out.println("coin name " + currencyName);
-        String urls = url + currencyName.toLowerCase();
+        // Implementation for making API request to fetch coin details
+
+        System.out.println("Fetching details for: " + currencyName);
+        String url = "https://api.coingecko.com/api/v3/coins/" + currencyName.toLowerCase().trim();
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-        ResponseEntity<Map> responseEntity = restTemplate.getForEntity(urls, Map.class);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<Map> responseEntity = restTemplate.getForEntity(url, Map.class);
         Map<String, Object> responseBody = responseEntity.getBody();
-
         if (responseBody != null) {
+
             Map<String, Object> image = (Map<String, Object>) responseBody.get("image");
             Map<String, Object> marketData = (Map<String, Object>) responseBody.get("market_data");
-
             CoinDTO coinInfo = new CoinDTO();
             coinInfo.setId((String) responseBody.get("id"));
             coinInfo.setSymbol((String) responseBody.get("symbol"));
@@ -67,133 +57,86 @@ public class ChatBotServiceImpl implements ChatBotService {
             coinInfo.setHigh24h(convertToDouble(((Map<String, Object>) marketData.get("high_24h")).get("usd")));
             coinInfo.setLow24h(convertToDouble(((Map<String, Object>) marketData.get("low_24h")).get("usd")));
             coinInfo.setPriceChange24h(convertToDouble(marketData.get("price_change_24h")));
-            coinInfo.setPriceChangePercentage24h(convertToDouble(marketData.get("price_change_percentage_24h")));
-            coinInfo.setMarketCapChange24h(convertToDouble(marketData.get("market_cap_change_24h")));
+            coinInfo.setPriceChangePercentage24h(convertToDouble(marketData.get(
+                    "price_change_percentage_24h")));
+            coinInfo.setMarketCapChange24h(convertToDouble(marketData.get(
+                    "market_cap_change_24h")));
             coinInfo.setMarketCapChangePercentage24h(
                     convertToDouble(marketData.get("market_cap_change_percentage_24h")));
-            coinInfo.setCirculatingSupply(convertToDouble(marketData.get("circulating_supply")));
+            coinInfo.setCirculatingSupply(convertToDouble(marketData.get(
+                    "circulating_supply")));
             coinInfo.setTotalSupply(convertToDouble(marketData.get("total_supply")));
 
             return coinInfo;
         }
-        return null;
+        throw new RuntimeException("Failed to fetch coin details");
+
     }
 
-    public FunctionResponse getFunctionResponse(String prompt) {
-        String GEMINI_API_URL = url + "?key=" + API_KEY;
+    private String extractCoinIdViaSearch(String prompt) {
+        // pick a simple keyword: e.g. the last word of the prompt
+        String[] words = prompt.replaceAll("[^A-Za-z ]", "")
+                .trim()
+                .split("\\s+");
+        String keyword = words[words.length - 1].toLowerCase();
+        // System.out.println(Arrays.toString(words)); // ["What", "is", "the", "price",
+        // "of", "solana"]
+        System.out.println("Keyword: " + keyword); // solana
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        String requestBody = "{\n" +
-                "  \"contents\": [\n" +
-                "    {\n" +
-                "      \"parts\": [\n" +
-                "        {\n" +
-                "          \"text\": \"" + prompt + "\"\n" +
-                "        }\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"tools\": [\n" +
-                "    {\n" +
-                "      \"functionDeclarations\": [\n" +
-                "        {\n" +
-                "          \"name\": \"getCoinDetails\",\n" +
-                "          \"description\": \"Get the coin details from given currency object\",\n" +
-                "          \"parameters\": {\n" +
-                "            \"type\": \"OBJECT\",\n" +
-                "            \"properties\": {\n" +
-                "              \"currencyName\": {\n" +
-                "                \"type\": \"STRING\",\n" +
-                "                \"description\": \"The currency name, id, symbol.\"\n" +
-                "              },\n" +
-                "              \"currencyData\": {\n" +
-                "                \"type\": \"STRING\",\n" +
-                "                \"description\": \"Currency Data like id, symbol, name, image, current_price, market_cap, etc.\"\n"
-                +
-                "              }\n" +
-                "            },\n" +
-                "            \"required\": [\"currencyName\", \"currencyData\"]\n" +
-                "          }\n" +
-                "        }\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(GEMINI_API_URL, requestEntity, String.class);
-
-        String responseBody = response.getBody();
-        ReadContext ctx = JsonPath.parse(responseBody);
-
-        FunctionResponse res = new FunctionResponse();
-        res.setCurrencyName(ctx.read("$.candidates[0].content.parts[0].functionCall.args.currencyName"));
-        res.setCurrencyData(ctx.read("$.candidates[0].content.parts[0].functionCall.args.currencyData"));
-        res.setFunctionName(ctx.read("$.candidates[0].content.parts[0].functionCall.name"));
-
-        return res;
+        String url = "https://api.coingecko.com/api/v3/search?query=" + keyword;
+        /*
+         * RestTemplate restTemplate = new RestTemplate();
+         * HttpHeaders headers = new HttpHeaders();
+         * 
+         * HttpEntity<String> entity = new HttpEntity<>(headers);
+         * ResponseEntity<Map> responseEntity = restTemplate.getForEntity(url,
+         * Map.class);
+         * Map<String, Object> responseBody = responseEntity.getBody();
+         * List<Map<String,Object>> coins = (List<Map<String,Object>>)
+         * responseBody.getBody().get("coins");
+         */
+        RestTemplate rest = new RestTemplate();
+        ResponseEntity<Map> resp = rest.getForEntity(url, Map.class);
+        List<Map<String, Object>> coins = (List<Map<String, Object>>) resp.getBody().get("coins");
+        System.out.println("Coins: " + coins);
+        if (coins != null && !coins.isEmpty()) {
+            return (String) coins.get(0).get("id");
+        }
+        throw new IllegalArgumentException("No matching coin for “" + keyword + "”");
     }
 
     @Override
     public ApiResponse getCoinDetails(String prompt) {
-        FunctionResponse res = getFunctionResponse(prompt);
-        String apiResponse = makeApiRequest(res.getCurrencyName()).toString();
-        String GEMINI_API_URL = url + "?key=" + API_KEY;
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        String body = "{\n" +
-                "  \"contents\": [\n" +
-                "    {\"role\": \"user\", \"parts\": [{\"text\": \"" + prompt + "\"}]},\n" +
-                "    {\"role\": \"model\", \"parts\": [{\"functionCall\": {\"name\": \"getCoinDetails\", \"args\": {\"currencyName\": \""
-                + res.getCurrencyName() + "\", \"currencyData\": \"" + res.getCurrencyData() + "\"}}}]},\n" +
-                "    {\"role\": \"function\", \"parts\": [{\"functionResponse\": {\"name\": \"getCoinDetails\", \"response\": {\"name\": \"getCoinDetails\", \"content\": "
-                + apiResponse + "}}}]}\n" +
-                "  ]\n" +
-                "}";
-
-        HttpEntity<String> request = new HttpEntity<>(body, headers);
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(GEMINI_API_URL, request, String.class);
-
-        ReadContext ctx = JsonPath.parse(response.getBody());
-        String text = ctx.read("$.candidates[0].content.parts[0].text");
+        String coinId = extractCoinIdViaSearch(prompt);
+        CoinDTO coinDetails = makeApiRequest(coinId);
+        System.out.println("Coin Details: " + coinDetails);
+        // String functionResponse = getFunctionResponse(prompt).toString();
+        // System.out.println("functionResponse: " + functionResponse);
         ApiResponse ans = new ApiResponse();
-        ans.setMessage(text);
+        String lowerPrompt = prompt.toLowerCase();
+        String result;
+
+        if (lowerPrompt.contains("price") || lowerPrompt.contains("value")) {
+            result = "Current price of " + coinDetails.getName() + " is ₹" + coinDetails.getCurrentPrice();
+        } else if (lowerPrompt.contains("market cap")) {
+            result = "Market cap of " + coinDetails.getName() + " is ₹" + coinDetails.getMarketCap();
+        } else if (lowerPrompt.contains("volume")) {
+            result = "Total volume of " + coinDetails.getName() + " is ₹" + coinDetails.getTotalVolume();
+        } else if (lowerPrompt.contains("rank")) {
+            result = coinDetails.getName() + " is ranked #" + coinDetails.getMarketCapRank();
+        } else if (lowerPrompt.contains("high")) {
+            result = "24h high of " + coinDetails.getName() + " is ₹" + coinDetails.getHigh24h();
+        } else if (lowerPrompt.contains("low")) {
+            result = "24h low of " + coinDetails.getName() + " is ₹" + coinDetails.getLow24h();
+        } else if (lowerPrompt.contains("supply")) {
+            result = "Circulating supply of " + coinDetails.getName() + " is " + coinDetails.getCirculatingSupply();
+        } else {
+            result = "Sorry, I couldn’t understand your query. Here's full info:\n" + coinDetails.toString();
+        }
+
+        ans.setMessage(result);
         return ans;
     }
 
-    @Override
-    public CoinDTO getCoinByName(String coinName) {
-        return this.makeApiRequest(coinName);
-    }
-
-    @Override
-    public String simpleChat(String prompt) {
-        String GEMINI_API_URL = url + "?key=" + API_KEY;
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        JSONObject requestBody = new JSONObject();
-        JSONArray contentsArray = new JSONArray();
-        JSONObject contentsObject = new JSONObject();
-        JSONArray partsArray = new JSONArray();
-        JSONObject textObject = new JSONObject();
-        textObject.put("text", prompt);
-        partsArray.put(textObject);
-        contentsObject.put("parts", partsArray);
-        contentsArray.put(contentsObject);
-        requestBody.put("contents", contentsArray);
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody.toString(), headers);
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(GEMINI_API_URL, requestEntity, String.class);
-
-        return response.getBody();
-    }
 }

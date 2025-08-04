@@ -19,6 +19,8 @@ import com.trading.demo.service.CoinService;
 import com.trading.demo.service.UserService;
 import com.trading.demo.service.WatchlistService;
 
+import jakarta.transaction.Transactional;
+
 ;
 
 @RestController
@@ -67,6 +69,7 @@ public class WatchlistController {
         }
 
         @PatchMapping("/add/coin/{coinId}")
+        @Transactional
         public ResponseEntity<Coin> addItemToWatchlist(
                         @RequestHeader("Authorization") String jwt,
                         @PathVariable String coinId) throws Exception {

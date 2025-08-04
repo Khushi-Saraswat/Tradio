@@ -2,6 +2,7 @@ package com.trading.demo.service;
 
 import java.util.List;
 
+import com.trading.demo.domain.OrderDto;
 import com.trading.demo.domain.OrderType;
 import com.trading.demo.model.Coin;
 import com.trading.demo.model.Order;
@@ -14,7 +15,7 @@ public interface OrderService {
 
     Order getOrderById(Long orderId);
 
-    List<Order> getAllOrdersForUser(Long userId, String orderType, String assetSymbol);
+    List<OrderDto> getAllOrdersForUser(Long userId, String orderType, String assetSymbol);
 
     void cancelOrder(Long orderId);
 

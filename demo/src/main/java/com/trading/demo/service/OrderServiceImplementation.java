@@ -1,9 +1,14 @@
 package com.trading.demo.service;
 
-import jakarta.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trading.demo.domain.OrderDto;
 import com.trading.demo.domain.OrderStatus;
 import com.trading.demo.domain.OrderType;
 import com.trading.demo.model.Asset;
@@ -14,10 +19,7 @@ import com.trading.demo.model.User;
 import com.trading.demo.repository.OrderItemRepository;
 import com.trading.demo.repository.OrderRepository;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+import jakarta.transaction.Transactional;
 
 @Service
 public class OrderServiceImplementation implements OrderService {
@@ -60,7 +62,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public List<Order> getAllOrdersForUser(Long userId, String orderType, String assetSymbol) {
+    public List<OrderDto> getAllOrdersForUser(Long userId, String orderType, String assetSymbol) {
         List<Order> allUserOrders = orderRepository.findByUserId(userId);
 
         if (orderType != null && !orderType.isEmpty()) {
@@ -76,8 +78,20 @@ public class OrderServiceImplementation implements OrderService {
                     .collect(Collectors.toList());
         }
 
-        return allUserOrders;
+        // Map to DTOs
+        return allUserOrders.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
 
+    private OrderDto mapToDto(Order order) {
+        OrderDto orderDto = new OrderDto(
+                order.getId(),
+                order.getOrderType(),
+                order.getPrice(),
+                order.getTimestamp(),
+                order.getStatus().name(),
+                order.getUser().getEmail(),
+                order.getOrderItem().getCoin().getSymbol());
+        return orderDto;
     }
 
     @Override

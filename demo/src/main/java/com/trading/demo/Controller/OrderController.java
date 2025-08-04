@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trading.demo.domain.OrderDto;
 import com.trading.demo.model.Coin;
 import com.trading.demo.model.Order;
 import com.trading.demo.model.User;
@@ -22,6 +23,8 @@ import com.trading.demo.service.CoinService;
 import com.trading.demo.service.OrderService;
 import com.trading.demo.service.UserService;
 import com.trading.demo.service.WalletTransactionService;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -77,8 +80,9 @@ public class OrderController {
         }
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Order>> getAllOrdersForUser(
+    @GetMapping("/")
+    @Transactional
+    public ResponseEntity<List<OrderDto>> getAllOrdersForUser(
             @RequestHeader("Authorization") String jwtToken,
             @RequestParam(required = false) String order_type,
             @RequestParam(required = false) String asset_symbol) throws Exception {
@@ -88,7 +92,7 @@ public class OrderController {
 
         Long userId = userSerivce.findUserProfileByJwt(jwtToken).getId();
 
-        List<Order> userOrders = orderService.getAllOrdersForUser(userId, order_type, asset_symbol);
+        List<OrderDto> userOrders = orderService.getAllOrdersForUser(userId, order_type, asset_symbol);
         System.out.println("userOrders" + userOrders);
         return ResponseEntity.ok(userOrders);
     }
