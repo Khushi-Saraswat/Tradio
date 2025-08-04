@@ -232,10 +232,4 @@ npm run dev
 > Built with ❤️ by Khushi Saraswat
 > Java Backend Developer | React | Spring Boot | MySQL
 
----
-
-```
-
----
-
 
