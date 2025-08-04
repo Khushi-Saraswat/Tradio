@@ -1,4 +1,4 @@
-# 💹 Crypto Trading Platform
+# 💹 Tradio (Crypto Trading Platform)
 
 A full-stack cryptocurrency trading platform that allows users to buy/sell crypto, manage their portfolio, view transaction history, and securely handle funds — all in real-time.
 
