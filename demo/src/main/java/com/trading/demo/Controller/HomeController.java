@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trading.demo.response.ApiResponse;
 
-@RestController
+@RestController()
 public class HomeController {
 
-	@GetMapping("")
+	@GetMapping("/home")
 	public ResponseEntity<ApiResponse> homeController() {
 
 		ApiResponse res = new ApiResponse(
