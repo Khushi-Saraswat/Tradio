@@ -14,7 +14,7 @@ import com.razorpay.RazorpayException;
 import com.trading.demo.domain.PaymentMethod;
 import com.trading.demo.domain.PaymentOrderStatus;
 import com.trading.demo.model.PaymentOrder;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.PaymentOrderRepository;
 import com.trading.demo.response.PaymentResponse;
 
@@ -31,7 +31,7 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentOrderRepository paymentOrderRepository;
 
     @Override
-    public PaymentOrder createOrder(User user, Long amount, PaymentMethod paymentMethod) {
+    public PaymentOrder createOrder(Users user, Long amount, PaymentMethod paymentMethod) {
         PaymentOrder order = new PaymentOrder();
         order.setUser(user);
         order.setAmount(amount);
@@ -78,7 +78,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentResponse createRazorpayPaymentLink(User user,
+    public PaymentResponse createRazorpayPaymentLink(Users user,
             Long Amount,
             Long orderId)
             throws RazorpayException {

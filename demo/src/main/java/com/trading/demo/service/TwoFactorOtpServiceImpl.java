@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trading.demo.model.TwoFactorOTP;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.TwoFactorOtpRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class TwoFactorOtpServiceImpl implements TwoFactorOtpService {
     private TwoFactorOtpRepository twoFactorOtpRepository;
 
     @Override
-    public TwoFactorOTP createTwoFactorOtp(User user, String otp, String jwt) {
+    public TwoFactorOTP createTwoFactorOtp(Users user, String otp, String jwt) {
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString();
 

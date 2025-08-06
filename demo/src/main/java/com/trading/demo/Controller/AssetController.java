@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trading.demo.exception.UserException;
 import com.trading.demo.model.Asset;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.service.AssetService;
 import com.trading.demo.service.UserService;
 
@@ -39,7 +39,7 @@ public class AssetController {
             @PathVariable String coinId,
             @RequestHeader("Authorization") String jwt) throws Exception {
 
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
         Asset asset = assetService.findAssetByUserIdAndCoinId(user.getId(), coinId);
         return ResponseEntity.ok().body(asset);
     }
@@ -47,7 +47,7 @@ public class AssetController {
     @GetMapping()
     public ResponseEntity<List<Asset>> getAssetsForUser(
             @RequestHeader("Authorization") String jwt) throws UserException {
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
         List<Asset> assets = assetService.getUsersAssets(user.getId());
         System.out.println(assets + "assests in userget");
         return ResponseEntity.ok().body(assets);

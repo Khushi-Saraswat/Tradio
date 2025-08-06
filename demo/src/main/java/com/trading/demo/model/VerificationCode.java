@@ -2,7 +2,11 @@ package com.trading.demo.model;
 
 import com.trading.demo.domain.VerificationType;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -16,7 +20,7 @@ public class VerificationCode {
     private String otp;
 
     @OneToOne
-    private User user;
+    private Users user;
 
     private String email;
 

@@ -14,7 +14,7 @@ public class ForgotPasswordToken {
     private String id;
 
     @OneToOne
-    private User user;
+    private Users user;
 
     private String otp;
 

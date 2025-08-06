@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.trading.demo.model.Coin;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.model.Watchlist;
 import com.trading.demo.repository.WatchlistRepository;
 
@@ -29,7 +29,7 @@ public class WatchlistServiceImpl implements WatchlistService {
     }
 
     @Override
-    public Watchlist createWatchList(User user) {
+    public Watchlist createWatchList(Users user) {
         Watchlist watchlist = new Watchlist();
         watchlist.setUser(user);
         return watchlistRepository.save(watchlist);
@@ -45,7 +45,7 @@ public class WatchlistServiceImpl implements WatchlistService {
     }
 
     @Override
-    public Coin addItemToWatchlist(Coin coin, User user) throws Exception {
+    public Coin addItemToWatchlist(Coin coin, Users user) throws Exception {
         Watchlist watchlist = findUserWatchlist(user.getId());
 
         if (watchlist.getCoins().contains(coin)) {

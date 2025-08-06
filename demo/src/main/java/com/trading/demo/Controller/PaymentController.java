@@ -12,7 +12,7 @@ import com.razorpay.RazorpayException;
 import com.trading.demo.domain.PaymentMethod;
 import com.trading.demo.exception.UserException;
 import com.trading.demo.model.PaymentOrder;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.response.PaymentResponse;
 import com.trading.demo.service.PaymentService;
 import com.trading.demo.service.UserService;
@@ -32,7 +32,7 @@ public class PaymentController {
             @PathVariable Long amount,
             @RequestHeader("Authorization") String jwt) throws UserException, RazorpayException {
 
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
         System.out.println("puser" + "" + user);
         PaymentResponse paymentResponse = null;
 

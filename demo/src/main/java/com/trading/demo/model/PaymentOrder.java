@@ -3,7 +3,11 @@ package com.trading.demo.model;
 import com.trading.demo.domain.PaymentMethod;
 import com.trading.demo.domain.PaymentOrderStatus;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,5 +29,5 @@ public class PaymentOrder {
     private PaymentMethod paymentMethod;
 
     @ManyToOne
-    private User user;
+    private Users user;
 }

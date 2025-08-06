@@ -1,12 +1,16 @@
 package com.trading.demo.model;
 
-import jakarta.persistence.*;
+import java.math.BigDecimal;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "wallets")
@@ -20,7 +24,7 @@ public class Wallet {
     private Long id;
 
     @OneToOne
-    private User user;
+    private Users user;
 
     private BigDecimal balance = BigDecimal.ZERO;
 }

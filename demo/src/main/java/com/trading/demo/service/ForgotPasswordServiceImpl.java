@@ -1,14 +1,14 @@
 package com.trading.demo.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trading.demo.domain.VerificationType;
 import com.trading.demo.model.ForgotPasswordToken;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.ForgotPasswordRepository;
-
-import java.util.Optional;
 
 @Service
 public class ForgotPasswordServiceImpl implements ForgotPasswordService {
@@ -16,7 +16,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     private ForgotPasswordRepository forgotPasswordRepository;
 
     @Override
-    public ForgotPasswordToken createToken(User user,
+    public ForgotPasswordToken createToken(Users user,
             String id,
             String otp,
             VerificationType verificationType,

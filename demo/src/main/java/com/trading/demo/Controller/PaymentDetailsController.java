@@ -3,11 +3,16 @@ package com.trading.demo.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.trading.demo.exception.UserException;
 import com.trading.demo.model.PaymentDetails;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.service.PaymentDetailsService;
 import com.trading.demo.service.UserService;
 
@@ -26,7 +31,7 @@ public class PaymentDetailsController {
             @RequestBody PaymentDetails paymentDetailsRequest,
             @RequestHeader("Authorization") String jwt) throws UserException {
 
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
 
         PaymentDetails paymentDetails = paymentDetailsService.addPaymentDetails(
                 paymentDetailsRequest.getAccountNumber(),
@@ -42,7 +47,7 @@ public class PaymentDetailsController {
 
             @RequestHeader("Authorization") String jwt) throws UserException {
 
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
 
         PaymentDetails paymentDetails = paymentDetailsService.getUsersPaymentDetails(user);
         return new ResponseEntity<>(paymentDetails, HttpStatus.CREATED);

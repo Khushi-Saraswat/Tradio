@@ -32,7 +32,7 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    private User user;
+    private Users user;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

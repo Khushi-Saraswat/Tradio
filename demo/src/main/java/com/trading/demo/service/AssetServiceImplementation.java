@@ -1,15 +1,14 @@
 package com.trading.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trading.demo.model.Asset;
 import com.trading.demo.model.Coin;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.AssetsRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AssetServiceImplementation implements AssetService {
@@ -21,7 +20,7 @@ public class AssetServiceImplementation implements AssetService {
     }
 
     @Override
-    public Asset createAsset(User user, Coin coin, double quantity) {
+    public Asset createAsset(Users user, Coin coin, double quantity) {
         Asset asset = new Asset();
 
         asset.setQuantity(quantity);

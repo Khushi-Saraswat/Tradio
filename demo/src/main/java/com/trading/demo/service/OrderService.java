@@ -7,11 +7,11 @@ import com.trading.demo.domain.OrderType;
 import com.trading.demo.model.Coin;
 import com.trading.demo.model.Order;
 import com.trading.demo.model.OrderItem;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 
 public interface OrderService {
 
-    Order createOrder(User user, OrderItem orderItem, OrderType orderType);
+    Order createOrder(Users user, OrderItem orderItem, OrderType orderType);
 
     Order getOrderById(Long orderId);
 
@@ -22,7 +22,7 @@ public interface OrderService {
     // Order buyAsset(CreateOrderRequest req, Long userId, String jwt) throws
     // Exception;
 
-    Order processOrder(Coin coin, double quantity, OrderType orderType, User user) throws Exception;
+    Order processOrder(Coin coin, double quantity, OrderType orderType, Users user) throws Exception;
 
     // Order sellAsset(CreateOrderRequest req,Long userId,String jwt) throws
     // Exception;

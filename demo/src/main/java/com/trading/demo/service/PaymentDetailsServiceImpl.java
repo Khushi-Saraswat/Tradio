@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trading.demo.model.PaymentDetails;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.PaymentDetailsRepository;
 
 @Service
@@ -19,7 +19,7 @@ public class PaymentDetailsServiceImpl implements PaymentDetailsService {
             String accountHolderName,
             String ifsc,
             String bankName,
-            User user) {
+            Users user) {
         PaymentDetails paymentDetails = new PaymentDetails();
         paymentDetails.setAccountNumber(accountNumber);
         paymentDetails.setAccountHolderName(accountHolderName);
@@ -30,7 +30,7 @@ public class PaymentDetailsServiceImpl implements PaymentDetailsService {
     }
 
     @Override
-    public PaymentDetails getUsersPaymentDetails(User user) {
+    public PaymentDetails getUsersPaymentDetails(Users user) {
         return paymentDetailsRepository.getPaymentDetailsByUserId(user.getId());
     }
 }

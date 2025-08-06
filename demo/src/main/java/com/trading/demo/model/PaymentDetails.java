@@ -1,7 +1,12 @@
 package com.trading.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -22,6 +27,6 @@ public class PaymentDetails {
 
     @OneToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User user;
+    private Users user;
 
 }

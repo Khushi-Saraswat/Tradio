@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trading.demo.domain.WalletTransactionType;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.model.Wallet;
 import com.trading.demo.model.WalletTransaction;
 import com.trading.demo.model.Withdrawal;
@@ -41,7 +41,7 @@ public class WithdrawalController {
     public ResponseEntity<?> withdrawalRequest(
             @PathVariable Long amount,
             @RequestHeader("Authorization") String jwt) throws Exception {
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
         Wallet userWallet = walletService.getUserWallet(user);
 
         Withdrawal withdrawal = withdrawalService.requestWithdrawal(amount, user);
@@ -61,7 +61,7 @@ public class WithdrawalController {
             @PathVariable Long id,
             @PathVariable boolean accept,
             @RequestHeader("Authorization") String jwt) throws Exception {
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
 
         Withdrawal withdrawal = withdrawalService.procedWithdrawal(id, accept);
 
@@ -77,7 +77,7 @@ public class WithdrawalController {
     public ResponseEntity<List<Withdrawal>> getWithdrawalHistory(
 
             @RequestHeader("Authorization") String jwt) throws Exception {
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
         System.out.println("User" + "user in withdrawal");
 
         List<Withdrawal> withdrawal = withdrawalService.getUsersWithdrawalHistory(user);
@@ -90,7 +90,7 @@ public class WithdrawalController {
     public ResponseEntity<List<Withdrawal>> getAllWithdrawalRequest(
 
             @RequestHeader("Authorization") String jwt) throws Exception {
-        User user = userService.findUserProfileByJwt(jwt);
+        Users user = userService.findUserProfileByJwt(jwt);
 
         List<Withdrawal> withdrawal = withdrawalService.getAllWithdrawalRequest();
 

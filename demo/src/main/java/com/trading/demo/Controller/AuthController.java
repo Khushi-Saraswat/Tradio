@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trading.demo.config.JwtProvider;
 import com.trading.demo.exception.UserException;
 import com.trading.demo.model.TwoFactorOTP;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.UserRepository;
 import com.trading.demo.request.LoginRequest;
 import com.trading.demo.response.AuthResponse;
@@ -72,7 +72,7 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<AuthResponse> createUserHandler(
-			@RequestBody User user) throws UserException {
+			@RequestBody Users user) throws UserException {
 
 		String email = user.getEmail();
 		String password = user.getPassword();
@@ -80,7 +80,7 @@ public class AuthController {
 		String mobile = user.getMobile();
 		System.out.println(mobile + "mobile in user");
 
-		User isEmailExist = userRepository.findByEmail(email);
+		Users isEmailExist = userRepository.findByEmail(email);
 
 		if (isEmailExist != null) {
 
@@ -88,13 +88,13 @@ public class AuthController {
 		}
 
 		// Create new user
-		User createdUser = new User();
+		Users createdUser = new Users();
 		createdUser.setEmail(email);
 		createdUser.setFullName(fullName);
 		createdUser.setMobile(mobile);
 		createdUser.setPassword(passwordEncoder.encode(password));
 
-		User savedUser = userRepository.save(createdUser);
+		Users savedUser = userRepository.save(createdUser);
 
 		watchlistService.createWatchList(savedUser);
 		// walletService.createWallet(user);
@@ -123,7 +123,7 @@ public class AuthController {
 
 		Authentication authentication = authenticate(username, password);
 
-		User user = userService.findUserByEmail(username);
+		Users user = userService.findUserByEmail(username);
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -182,7 +182,7 @@ public class AuthController {
 
 	// /login/oauth2/code/google
 	@GetMapping("/login/oauth2/code/google")
-	public User handleGoogleCallback(@RequestParam(required = false, name = "code") String code,
+	public Users handleGoogleCallback(@RequestParam(required = false, name = "code") String code,
 			@RequestParam(required = false, name = "state") String state,
 			OAuth2AuthenticationToken authentication) {
 
@@ -191,7 +191,7 @@ public class AuthController {
 		String fullName = authentication.getPrincipal().getAttribute("name");
 		// You can extract more details as needed
 
-		User user = new User();
+		Users user = new Users();
 		user.setEmail(email);
 		user.setFullName(fullName);
 

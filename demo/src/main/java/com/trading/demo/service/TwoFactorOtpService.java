@@ -1,11 +1,11 @@
 package com.trading.demo.service;
 
 import com.trading.demo.model.TwoFactorOTP;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 
 public interface TwoFactorOtpService {
 
-    TwoFactorOTP createTwoFactorOtp(User user, String otp, String jwt);
+    TwoFactorOTP createTwoFactorOtp(Users user, String otp, String jwt);
 
     TwoFactorOTP findByUser(Long userId);
 

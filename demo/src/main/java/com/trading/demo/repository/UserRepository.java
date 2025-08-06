@@ -2,10 +2,10 @@ package com.trading.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-	public User findByEmail(String email);
+	public Users findByEmail(String email);
 
 }

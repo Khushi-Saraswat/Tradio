@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.trading.demo.domain.USER_ROLE;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.UserRepository;
 
 @Component
@@ -33,13 +33,13 @@ public class DataInitializationComponent implements CommandLineRunner {
         String adminUsername = "codewithzosh@gmail.com";
 
         if (userRepository.findByEmail(adminUsername) == null) {
-            User adminUser = new User();
+            Users adminUser = new Users();
 
             adminUser.setPassword(passwordEncoder.encode("codewithzosh"));
             adminUser.setFullName("Code With Zosh");
             adminUser.setEmail(adminUsername);
             adminUser.setRole(USER_ROLE.ROLE_ADMIN);
-            User admin = userRepository.save(adminUser);
+            Users admin = userRepository.save(adminUser);
         }
     }
 

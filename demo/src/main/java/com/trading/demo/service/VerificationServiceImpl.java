@@ -1,17 +1,15 @@
 package com.trading.demo.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trading.demo.domain.VerificationType;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.model.VerificationCode;
 import com.trading.demo.repository.VerificationRepository;
 import com.trading.demo.utils.OtpUtils;
-
-import javax.swing.text.html.Option;
-import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class VerificationServiceImpl implements VerificationService {
@@ -20,7 +18,7 @@ public class VerificationServiceImpl implements VerificationService {
     private VerificationRepository verificationRepository;
 
     @Override
-    public VerificationCode sendVerificationOTP(User user, VerificationType verificationType) {
+    public VerificationCode sendVerificationOTP(Users user, VerificationType verificationType) {
 
         VerificationCode verificationCode = new VerificationCode();
 
@@ -41,7 +39,7 @@ public class VerificationServiceImpl implements VerificationService {
     }
 
     @Override
-    public VerificationCode findUsersVerification(User user) throws Exception {
+    public VerificationCode findUsersVerification(Users user) throws Exception {
         return verificationRepository.findByUserId(user.getId());
     }
 

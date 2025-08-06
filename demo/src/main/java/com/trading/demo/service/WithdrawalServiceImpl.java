@@ -1,17 +1,16 @@
 package com.trading.demo.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trading.demo.domain.WithdrawalStatus;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.model.Withdrawal;
 import com.trading.demo.repository.WithdrawalRepository;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WithdrawalServiceImpl implements WithdrawalService {
@@ -19,7 +18,7 @@ public class WithdrawalServiceImpl implements WithdrawalService {
     private WithdrawalRepository withdrawalRepository;
 
     @Override
-    public Withdrawal requestWithdrawal(Long amount, User user) {
+    public Withdrawal requestWithdrawal(Long amount, Users user) {
         Withdrawal withdrawal = new Withdrawal();
         withdrawal.setAmount(amount);
         // withdrawal.setStatus(WithdrawalStatus.PENDING);
@@ -51,7 +50,7 @@ public class WithdrawalServiceImpl implements WithdrawalService {
     }
 
     @Override
-    public List<Withdrawal> getUsersWithdrawalHistory(User user) {
+    public List<Withdrawal> getUsersWithdrawalHistory(Users user) {
         return withdrawalRepository.findByUserId(user.getId());
     }
 

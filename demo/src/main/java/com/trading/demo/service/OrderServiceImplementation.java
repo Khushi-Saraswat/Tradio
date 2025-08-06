@@ -15,7 +15,7 @@ import com.trading.demo.model.Asset;
 import com.trading.demo.model.Coin;
 import com.trading.demo.model.Order;
 import com.trading.demo.model.OrderItem;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.OrderItemRepository;
 import com.trading.demo.repository.OrderRepository;
 
@@ -40,7 +40,7 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     @Transactional
-    public Order createOrder(User user, OrderItem orderItem, OrderType orderType) {
+    public Order createOrder(Users user, OrderItem orderItem, OrderType orderType) {
 
         double price = orderItem.getCoin().getCurrentPrice() * orderItem.getQuantity();
 
@@ -120,7 +120,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Transactional
-    public Order buyAsset(Coin coin, double quantity, User user) throws Exception {
+    public Order buyAsset(Coin coin, double quantity, Users user) throws Exception {
         if (quantity < 0)
             throw new Exception("quantity should be > 0");
         double buyPrice = coin.getCurrentPrice();
@@ -154,7 +154,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Transactional
-    public Order sellAsset(Coin coin, double quantity, User user) throws Exception {
+    public Order sellAsset(Coin coin, double quantity, Users user) throws Exception {
         double sellPrice = coin.getCurrentPrice();
 
         Asset assetToSell = assetService.findAssetByUserIdAndCoinId(
@@ -195,7 +195,7 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     @Transactional
-    public Order processOrder(Coin coin, double quantity, OrderType orderType, User user) throws Exception {
+    public Order processOrder(Coin coin, double quantity, OrderType orderType, Users user) throws Exception {
 
         if (orderType == OrderType.BUY) {
             return buyAsset(coin, quantity, user);

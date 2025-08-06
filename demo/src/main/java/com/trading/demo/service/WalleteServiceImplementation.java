@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.trading.demo.domain.OrderType;
 import com.trading.demo.exception.WalletException;
 import com.trading.demo.model.Order;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.model.Wallet;
 import com.trading.demo.model.WalletTransaction;
 import com.trading.demo.repository.WalletRepository;
@@ -26,14 +26,14 @@ public class WalleteServiceImplementation implements WalletService {
     @Autowired
     private WalletTransactionRepository walletTransactionRepository;
 
-    public Wallet genrateWallete(User user) {
+    public Wallet genrateWallete(Users user) {
         Wallet wallet = new Wallet();
         wallet.setUser(user);
         return walletRepository.save(wallet);
     }
 
     @Override
-    public Wallet getUserWallet(User user) throws WalletException {
+    public Wallet getUserWallet(Users user) throws WalletException {
 
         Wallet wallet = walletRepository.findByUserId(user.getId());
         if (wallet != null) {
@@ -54,7 +54,7 @@ public class WalleteServiceImplementation implements WalletService {
     }
 
     @Override
-    public Wallet walletToWalletTransfer(User sender, Wallet receiverWallet, Long amount) throws WalletException {
+    public Wallet walletToWalletTransfer(Users sender, Wallet receiverWallet, Long amount) throws WalletException {
         Wallet senderWallet = getUserWallet(sender);
 
         if (senderWallet.getBalance().compareTo(BigDecimal.valueOf(amount)) < 0) {
@@ -74,7 +74,7 @@ public class WalleteServiceImplementation implements WalletService {
     }
 
     @Override
-    public Wallet payOrderPayment(Order order, User user) throws WalletException {
+    public Wallet payOrderPayment(Order order, Users user) throws WalletException {
         Wallet wallet = getUserWallet(user);
 
         WalletTransaction walletTransaction = new WalletTransaction();

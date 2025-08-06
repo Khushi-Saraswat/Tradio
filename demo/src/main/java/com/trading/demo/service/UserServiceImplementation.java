@@ -1,5 +1,7 @@
 package com.trading.demo.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,10 +10,8 @@ import com.trading.demo.config.JwtProvider;
 import com.trading.demo.domain.VerificationType;
 import com.trading.demo.exception.UserException;
 import com.trading.demo.model.TwoFactorAuth;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.repository.UserRepository;
-
-import java.util.Optional;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -23,10 +23,10 @@ public class UserServiceImplementation implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public User findUserProfileByJwt(String jwt) throws UserException {
+	public Users findUserProfileByJwt(String jwt) throws UserException {
 		String email = JwtProvider.getEmailFromJwtToken(jwt);
 
-		User user = userRepository.findByEmail(email);
+		Users user = userRepository.findByEmail(email);
 
 		if (user == null) {
 			throw new UserException("user not exist with email " + email);
@@ -35,9 +35,9 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public User findUserByEmail(String username) throws UserException {
+	public Users findUserByEmail(String username) throws UserException {
 
-		User user = userRepository.findByEmail(username);
+		Users user = userRepository.findByEmail(username);
 
 		if (user != null) {
 
@@ -48,8 +48,8 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public User findUserById(Long userId) throws UserException {
-		Optional<User> opt = userRepository.findById(userId);
+	public Users findUserById(Long userId) throws UserException {
+		Optional<Users> opt = userRepository.findById(userId);
 
 		if (opt.isEmpty()) {
 			throw new UserException("user not found with id " + userId);
@@ -58,14 +58,14 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public User verifyUser(User user) throws UserException {
+	public Users verifyUser(Users user) throws UserException {
 		user.setVerified(true);
 		return userRepository.save(user);
 	}
 
 	@Override
-	public User enabledTwoFactorAuthentication(
-			VerificationType verificationType, String sendTo, User user) throws UserException {
+	public Users enabledTwoFactorAuthentication(
+			VerificationType verificationType, String sendTo, Users user) throws UserException {
 		TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
 		twoFactorAuth.setEnabled(true);
 		twoFactorAuth.setSendTo(verificationType);
@@ -75,7 +75,7 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public User updatePassword(User user, String newPassword) {
+	public Users updatePassword(Users user, String newPassword) {
 		user.setPassword(passwordEncoder.encode(newPassword));
 		return userRepository.save(user);
 	}

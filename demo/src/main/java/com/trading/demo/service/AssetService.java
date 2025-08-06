@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.trading.demo.model.Asset;
 import com.trading.demo.model.Coin;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 
 public interface AssetService {
-    Asset createAsset(User user, Coin coin, double quantity);
+    Asset createAsset(Users user, Coin coin, double quantity);
 
     Asset getAssetById(Long assetId);
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trading.demo.domain.OrderDto;
 import com.trading.demo.model.Coin;
 import com.trading.demo.model.Order;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.request.CreateOrderRequest;
 import com.trading.demo.service.CoinService;
 import com.trading.demo.service.OrderService;
@@ -53,7 +53,7 @@ public class OrderController {
             @RequestBody CreateOrderRequest req
 
     ) throws Exception {
-        User user = userSerivce.findUserProfileByJwt(jwt);
+        Users user = userSerivce.findUserProfileByJwt(jwt);
         Coin coin = coinService.findById(req.getCoinId());
 
         Order order = orderService.processOrder(coin, req.getQuantity(), req.getOrderType(), user);
@@ -70,7 +70,7 @@ public class OrderController {
             throw new Exception("token missing...");
         }
 
-        User user = userSerivce.findUserProfileByJwt(jwtToken);
+        Users user = userSerivce.findUserProfileByJwt(jwtToken);
 
         Order order = orderService.getOrderById(orderId);
         if (order.getUser().getId().equals(user.getId())) {

@@ -1,12 +1,14 @@
 package com.trading.demo.model;
 
-import org.springframework.web.server.UnsupportedMediaTypeStatusException;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.trading.demo.domain.USER_ROLE;
 import com.trading.demo.domain.UserStatus;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Users {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

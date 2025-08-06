@@ -1,9 +1,11 @@
 package com.trading.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 @Entity
@@ -15,7 +17,7 @@ public class TwoFactorOTP {
 
     @OneToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User user;
+    private Users user;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String jwt;

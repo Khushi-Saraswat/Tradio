@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trading.demo.domain.VerificationType;
 import com.trading.demo.exception.UserException;
 import com.trading.demo.model.ForgotPasswordToken;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.model.VerificationCode;
 import com.trading.demo.request.ResetPasswordRequest;
 import com.trading.demo.request.UpdatePasswordRequest;
@@ -45,42 +45,42 @@ public class UserController {
 	private EmailService emailService;
 
 	@GetMapping("/api/users/profile")
-	public ResponseEntity<User> getUserProfileHandler(
+	public ResponseEntity<Users> getUserProfileHandler(
 			@RequestHeader("Authorization") String jwt) throws UserException {
 
-		User user = userService.findUserProfileByJwt(jwt);
+		Users user = userService.findUserProfileByJwt(jwt);
 		user.setPassword(null);
 
 		return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
 	}
 
 	@GetMapping("/api/users/{userId}")
-	public ResponseEntity<User> findUserById(
+	public ResponseEntity<Users> findUserById(
 			@PathVariable Long userId,
 			@RequestHeader("Authorization") String jwt) throws UserException {
 
-		User user = userService.findUserById(userId);
+		Users user = userService.findUserById(userId);
 		user.setPassword(null);
 
 		return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
 	}
 
 	@GetMapping("/api/users/email/{email}")
-	public ResponseEntity<User> findUserByEmail(
+	public ResponseEntity<Users> findUserByEmail(
 			@PathVariable String email,
 			@RequestHeader("Authorization") String jwt) throws UserException {
 
-		User user = userService.findUserByEmail(email);
+		Users user = userService.findUserByEmail(email);
 
 		return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
 	}
 
 	@PatchMapping("/api/users/enable-two-factor/verify-otp/{otp}")
-	public ResponseEntity<User> enabledTwoFactorAuthentication(
+	public ResponseEntity<Users> enabledTwoFactorAuthentication(
 			@RequestHeader("Authorization") String jwt,
 			@PathVariable String otp) throws Exception {
 
-		User user = userService.findUserProfileByJwt(jwt);
+		Users user = userService.findUserProfileByJwt(jwt);
 
 		VerificationCode verificationCode = verificationService.findUsersVerification(user);
 
@@ -91,7 +91,7 @@ public class UserController {
 		boolean isVerified = verificationService.VerifyOtp(otp, verificationCode);
 
 		if (isVerified) {
-			User updatedUser = userService.enabledTwoFactorAuthentication(verificationCode.getVerificationType(),
+			Users updatedUser = userService.enabledTwoFactorAuthentication(verificationCode.getVerificationType(),
 					sendTo, user);
 			verificationService.deleteVerification(verificationCode);
 			return ResponseEntity.ok(updatedUser);
@@ -124,7 +124,7 @@ public class UserController {
 			@RequestBody UpdatePasswordRequest req)
 			throws Exception {
 
-		User user = userService.findUserByEmail(req.getSendTo());
+		Users user = userService.findUserByEmail(req.getSendTo());
 		String otp = OtpUtils.generateOTP();
 		UUID uuid = UUID.randomUUID();
 		String id = uuid.toString();
@@ -151,11 +151,11 @@ public class UserController {
 	}
 
 	@PatchMapping("/api/users/verification/verify-otp/{otp}")
-	public ResponseEntity<User> verifyOTP(
+	public ResponseEntity<Users> verifyOTP(
 			@RequestHeader("Authorization") String jwt,
 			@PathVariable String otp) throws Exception {
 
-		User user = userService.findUserProfileByJwt(jwt);
+		Users user = userService.findUserProfileByJwt(jwt);
 
 		VerificationCode verificationCode = verificationService.findUsersVerification(user);
 
@@ -163,7 +163,7 @@ public class UserController {
 		System.out.print(isVerified + "isVerified");
 		if (isVerified) {
 			verificationService.deleteVerification(verificationCode);
-			User verifiedUser = userService.verifyUser(user);
+			Users verifiedUser = userService.verifyUser(user);
 			return ResponseEntity.ok(verifiedUser);
 		}
 		throw new Exception("wrong otp");
@@ -177,7 +177,7 @@ public class UserController {
 			throws Exception {
 
 		System.out.println(verificationType + "verificationType in backend");
-		User user = userService.findUserProfileByJwt(jwt);
+		Users user = userService.findUserProfileByJwt(jwt);
 
 		VerificationCode verificationCode = verificationService.findUsersVerification(user);
 

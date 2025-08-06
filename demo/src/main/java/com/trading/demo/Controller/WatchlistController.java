@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trading.demo.exception.UserException;
 import com.trading.demo.model.Coin;
-import com.trading.demo.model.User;
+import com.trading.demo.model.Users;
 import com.trading.demo.model.Watchlist;
 import com.trading.demo.service.CoinService;
 import com.trading.demo.service.UserService;
@@ -43,7 +43,7 @@ public class WatchlistController {
         public ResponseEntity<Watchlist> getUserWatchlist(
                         @RequestHeader("Authorization") String jwt) throws Exception {
 
-                User user = userService.findUserProfileByJwt(jwt);
+                Users user = userService.findUserProfileByJwt(jwt);
                 System.out.println(user + "in getUserWatchlist");
                 Watchlist watchlist = watchlistService.findUserWatchlist(user.getId());
                 System.out.println(watchlist + "watchList in getUserWatchList");
@@ -54,7 +54,7 @@ public class WatchlistController {
         @PostMapping("/create")
         public ResponseEntity<Watchlist> createWatchlist(
                         @RequestHeader("Authorization") String jwt) throws UserException {
-                User user = userService.findUserProfileByJwt(jwt);
+                Users user = userService.findUserProfileByJwt(jwt);
                 Watchlist createdWatchlist = watchlistService.createWatchList(user);
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdWatchlist);
         }
@@ -74,7 +74,7 @@ public class WatchlistController {
                         @RequestHeader("Authorization") String jwt,
                         @PathVariable String coinId) throws Exception {
 
-                User user = userService.findUserProfileByJwt(jwt);
+                Users user = userService.findUserProfileByJwt(jwt);
                 Coin coin = coinService.findById(coinId);
                 Coin addedCoin = watchlistService.addItemToWatchlist(coin, user);
                 System.out.print("addedcoin to watchList" + "" + addedCoin);
