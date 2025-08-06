@@ -3,6 +3,7 @@ package com.trading.demo.config;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class AppConfig {
+
+	@Value("${frontend.url}")
+	private String frontendUrl;
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,7 +43,8 @@ public class AppConfig {
 					"http://localhost:3000",
 					"http://localhost:5173",
 					"http://localhost:5174",
-					"http://localhost:4200"));
+					"http://localhost:4200",
+					frontendUrl));
 			cfg.setAllowedMethods(Collections.singletonList("*"));
 			cfg.setAllowCredentials(true);
 			cfg.setAllowedHeaders(Collections.singletonList("*"));

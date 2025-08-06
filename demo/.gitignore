@@ -1,10 +1,22 @@
-HELP.md
+# === Build Artifacts ===
 target/
+*.jar
+*.war
+*.log
+
+# === .env and Secrets ===
+.env
+
+# === Maven Wrapper ===
 .mvn/wrapper/maven-wrapper.jar
+
+# Allow specific target folders in source (optional)
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+# === IDE Files ===
+
+# STS (Spring Tool Suite)
 .apt_generated
 .classpath
 .factorypath
@@ -13,13 +25,13 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
+# IntelliJ IDEA
 .idea
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -29,5 +41,5 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
