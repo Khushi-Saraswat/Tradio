@@ -5,11 +5,12 @@ import { ENABLE_TWO_STEP_AUTHENTICATION_FAILURE, ENABLE_TWO_STEP_AUTHENTICATION_
 
 export const register=(userData) => async(dispatch) =>{
     dispatch({type:REGISTER_REQUEST})
-    const baseurl="http://localhost:5455/"
+    const baseurl=import.meta.env.VITE_API_BASE_URL;
+    console.log("Base URL in action:", baseurl);
 
     try{
      console.log(userData.data+"userData in action");
-     const response=await axios.post(`${baseurl}auth/signup`,userData.data);
+     const response=await axios.post(`${API_BASE_URL}/auth/signup`,userData.data);
      const user=response.data;
      if(user.jwt){
      localStorage.setItem("jwt",user.jwt);
@@ -30,11 +31,11 @@ export const login=(userData) => async(dispatch) =>{
     dispatch({type:LOGIN_REQUEST})
 
 
-    const baseurl="http://localhost:5455/"
+    const baseurl=import.meta.env.VITE_API_BASE_URL;
     
 
     try{
-     const response=await axios.post(`${baseurl}auth/signin`,userData.data);
+     const response=await axios.post(`${API_BASE_URL}/auth/signin`,userData.data);
      const user=response.data;
      console.log(user+"login user");
      
@@ -64,11 +65,11 @@ export const getUser=(jwt) => async(dispatch) =>{
     dispatch({type:GET_USER_REQUEST})
 
 
-    const baseurl="http://localhost:5455/"
+    const baseurl=import.meta.env.VITE_API_BASE_URL;
 
     try{
     
-        const response = await axios.get(`${baseurl}api/users/profile`, {
+        const response = await axios.get(`${API_BASE_URL}/api/users/profile`, {
             headers: {
                 Authorization: `Bearer ${jwt}`
             }
@@ -121,10 +122,10 @@ export const sendVerificationOtp = ({ jwt, verificationType }) => {
   return async (dispatch) => {
     console.log(verificationType+"verficationType in sendVerificationOtp");
     dispatch({ type: SEND_VERIFICATION_OTP_REQUEST });
-    const baseurl = "http://localhost:5455"; // Use your backend base URL or API_BASE_URL
+    const baseurl = import.meta.env.VITE_API_BASE_URL; // Use your backend base URL or API_BASE_URL
     try {
       const response = await axios.post(
-        `${baseurl}/api/users/verification/${verificationType}/send-otp`,
+        `${API_BASE_URL}/api/users/verification/${verificationType}/send-otp`,
         {}, // No body needed
         {
           headers: {
@@ -222,7 +223,7 @@ export const sendResetPassowrdOTP = ({
     dispatch({ type: SEND_RESET_PASSWORD_OTP_REQUEST});
     try {
       const response = await axios.post(
-        `http://localhost:5455/auth/users/reset-password/send-otp`,
+        `${API_BASE_URL}/auth/users/reset-password/send-otp`,
         {
           sendTo,
           verificationType,
