@@ -55,6 +55,7 @@ public class CoinController {
     @GetMapping("/top50")
     ResponseEntity<JsonNode> getTop50CoinByMarketCapRank() throws JsonProcessingException {
         String coin = coinService.getTop50CoinsByMarketCapRank();
+        System.out.println(coin + "top 50 coins");
         JsonNode jsonNode = objectMapper.readTree(coin);
 
         return ResponseEntity.ok(jsonNode);
