@@ -3,6 +3,7 @@ package com.trading.demo.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,14 @@ public class CoinController {
     @GetMapping("/{coinId}/chart")
     ResponseEntity<JsonNode> getMarketChart(@PathVariable String coinId,
             @RequestParam("days") int days) throws Exception {
+        String url = "https://api.coingecko.com/api/v3/coins/" + coinId + "/market_chart?vs_currency=usd&days=" + days;
+
+        System.out.println("🌐 [INFO] Calling CoinGecko URL: " + url);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", "Mozilla/5.0"); // 👈 required
+        headers.set("Accept", "application/json");
+
         String coins = coinService.getMarketChart(coinId, days);
         JsonNode jsonNode = objectMapper.readTree(coins);
 
