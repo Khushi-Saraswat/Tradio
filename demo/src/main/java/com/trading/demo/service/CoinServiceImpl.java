@@ -1,11 +1,7 @@
 package com.trading.demo.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trading.demo.model.Coin;
-import com.trading.demo.repository.CoinRepository;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +14,12 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Optional;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trading.demo.model.Coin;
+import com.trading.demo.repository.CoinRepository;
 
 @Service
 public class CoinServiceImpl implements CoinService {
@@ -39,6 +39,8 @@ public class CoinServiceImpl implements CoinService {
         RestTemplate restTemplate = new RestTemplate();
         try {
             HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "Mozilla/5.0"); // ✅ CRUCIAL for cloud servers like Render
+
             headers.set("x-cg-demo-api-key", API_KEY);
 
             HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
@@ -66,6 +68,8 @@ public class CoinServiceImpl implements CoinService {
         RestTemplate restTemplate = new RestTemplate();
         try {
             HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "Mozilla/5.0"); // ✅ CRUCIAL for cloud servers like Render
+
             headers.set("x-cg-demo-api-key", API_KEY);
 
             HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
@@ -102,6 +106,7 @@ public class CoinServiceImpl implements CoinService {
 
         System.out.println("------------------ get coin details base url " + baseUrl);
         HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", "Mozilla/5.0");
         headers.set("x-cg-demo-api-key", API_KEY);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -156,6 +161,7 @@ public class CoinServiceImpl implements CoinService {
         String baseUrl = "https://api.coingecko.com/api/v3/search?query=" + keyword;
 
         HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", "Mozilla/5.0");
         headers.set("x-cg-demo-api-key", API_KEY);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -175,6 +181,7 @@ public class CoinServiceImpl implements CoinService {
         RestTemplate restTemplate = new RestTemplate();
         try {
             HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "Mozilla/5.0");
             headers.set("x-cg-demo-api-key", API_KEY);
 
             HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
@@ -198,6 +205,7 @@ public class CoinServiceImpl implements CoinService {
         RestTemplate restTemplate = new RestTemplate();
         try {
             HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "Mozilla/5.0");
             headers.set("x-cg-demo-api-key", API_KEY);
 
             HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
