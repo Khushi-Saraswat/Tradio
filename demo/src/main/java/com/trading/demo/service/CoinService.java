@@ -2,6 +2,7 @@ package com.trading.demo.service;
 
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.trading.demo.model.Coin;
 
 public interface CoinService {
@@ -9,13 +10,14 @@ public interface CoinService {
 
     String getMarketChart(String coinId, int days) throws Exception;
 
-    String getCoinDetails(String coinId) throws Exception;
-
-    String searchCoin(String keyword) throws Exception;
-
-    String getTop50CoinsByMarketCapRank() throws Exception;
-
-    String getTreadingCoins() throws Exception;
+    String getCoinDetails(String coinId) throws JsonProcessingException;
 
     Coin findById(String coinId) throws Exception;
+
+    String searchCoin(String keyword);
+
+    String getTop50CoinsByMarketCapRank();
+
+    String getTreadingCoins();
+
 }

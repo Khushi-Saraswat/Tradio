@@ -12,7 +12,7 @@ import com.trading.demo.response.ApiResponse;
 @Service
 public class ChatBotServiceImpl implements ChatBotService {
 
-    private static final String BASE_URL = "https://api.coincap.io/v2/assets/";
+    private static final String BASE_URL = "https://api.coingecko.com/api/v3/coins/";
 
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -31,23 +31,24 @@ public class ChatBotServiceImpl implements ChatBotService {
         ResponseEntity<Map> responseEntity = restTemplate.getForEntity(url, Map.class);
 
         Map<String, Object> responseBody = responseEntity.getBody();
-        if (responseBody == null || !responseBody.containsKey("data")) {
-            throw new RuntimeException("Invalid response from CoinCap API");
+        if (responseBody == null) {
+            throw new RuntimeException("Invalid response from CoinGecko API");
         }
 
-        Map<String, Object> data = (Map<String, Object>) responseBody.get("data");
+        Map<String, Object> marketData = (Map<String, Object>) responseBody.get("market_data");
+
         CoinDTO coinInfo = new CoinDTO();
-        coinInfo.setId((String) data.get("id"));
-        coinInfo.setName((String) data.get("name"));
-        coinInfo.setSymbol((String) data.get("symbol"));
-        coinInfo.setCurrentPrice(convertToDouble(data.get("priceUsd")));
-        coinInfo.setMarketCap(convertToDouble(data.get("marketCapUsd")));
-        coinInfo.setTotalVolume(convertToDouble(data.get("volumeUsd24Hr")));
-        coinInfo.setMarketCapRank(Integer.parseInt((String) data.get("rank")));
-        coinInfo.setHigh24h(0); // Not provided by CoinCap
-        coinInfo.setLow24h(0); // Not provided by CoinCap
-        coinInfo.setCirculatingSupply(convertToDouble(data.get("supply")));
-        coinInfo.setTotalSupply(convertToDouble(data.get("maxSupply") != null ? data.get("maxSupply") : "0"));
+        coinInfo.setId((String) responseBody.get("id"));
+        coinInfo.setName((String) responseBody.get("name"));
+        coinInfo.setSymbol((String) responseBody.get("symbol"));
+        coinInfo.setCurrentPrice(convertToDouble(((Map<String, Object>) marketData.get("current_price")).get("inr")));
+        coinInfo.setMarketCap(convertToDouble(((Map<String, Object>) marketData.get("market_cap")).get("inr")));
+        coinInfo.setTotalVolume(convertToDouble(((Map<String, Object>) marketData.get("total_volume")).get("inr")));
+        coinInfo.setMarketCapRank((Integer) responseBody.get("market_cap_rank"));
+        coinInfo.setHigh24h(convertToDouble(((Map<String, Object>) marketData.get("high_24h")).get("inr")));
+        coinInfo.setLow24h(convertToDouble(((Map<String, Object>) marketData.get("low_24h")).get("inr")));
+        coinInfo.setCirculatingSupply(convertToDouble(marketData.get("circulating_supply")));
+        coinInfo.setTotalSupply(convertToDouble(marketData.get("total_supply")));
 
         return coinInfo;
     }
@@ -58,7 +59,7 @@ public class ChatBotServiceImpl implements ChatBotService {
                 .split("\\s+");
         String keyword = words[words.length - 1].toLowerCase();
 
-        // In CoinCap, ID is often the lower-case name e.g., "bitcoin", "solana", etc.
+        // CoinGecko uses ids like "bitcoin", "solana", etc.
         return keyword;
     }
 
