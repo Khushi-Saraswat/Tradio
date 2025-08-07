@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-//import { sendMessage } from "@/Redux/Chat/Action";
 import { sendMessage } from "@/State/Chat/Action";
 import {
-  fetchCoinsDetails,
+  fetchCoinDetails,
+  fetchCoinList,
   fetchTreadingCoinList,
-  getCoinList,
-  getTop50CoinList
+  getTop50CoinList,
 } from "@/State/Coin/Action";
 import SpinnerBackdrop from "@/components/custome/SpinnerBackdrop";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
 import {
   Pagination,
   PaginationContent,
@@ -30,7 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AssetTable } from "./AssetTable";
 import StockChart from "./StockChart";
 
-const Home = () => {
+ const Home = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState("all");
@@ -38,11 +38,11 @@ const Home = () => {
   const [isBotRelease, setIsBotRelease] = useState(false); //
 
   useEffect(() => {
-    dispatch(getCoinList(page));
+    dispatch(fetchCoinList(page));
   }, [page]);
 
   useEffect(() => {
-    dispatch(fetchCoinsDetails({
+    dispatch(fetchCoinDetails({
       coinId: "bitcoin",
       jwt: auth.jwt || localStorage.getItem("jwt"),
     }))
@@ -84,11 +84,11 @@ const Home = () => {
 
   const chatContainerRef = useRef(null);
 
- /* useEffect(() => {
+  useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [chatBot.messages]);*/
+  }, [chatBot.messages]);
 
   
 
@@ -307,5 +307,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;

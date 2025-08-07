@@ -9,7 +9,6 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog"
 
-import { fetchCoinsDetails } from '@/State/Coin/Action'
 import { addItemToWatchlist, getUserWatchlist } from '@/State/WatchList/Action'
 import { existInWatchlist } from '@/utils/existInWatchList'
 import { AvatarImage } from '@radix-ui/react-avatar'
