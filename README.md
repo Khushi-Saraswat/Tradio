@@ -221,7 +221,6 @@ npm run dev
 ## 📦 Future Enhancements
 
 * Real-time WebSocket price updates
-* Support real money trading (via exchange API)
 * Full KYC user verification
 * Leaderboard for top traders
 
