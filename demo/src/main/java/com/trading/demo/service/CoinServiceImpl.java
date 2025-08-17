@@ -237,7 +237,7 @@ public class CoinServiceImpl implements CoinService {
         }
     }
 
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(fixedRate = 60000)
     public void refreshesCache() {
         trendingCache = fetchFromApi("https://api.coingecko.com/api/v3/search/trending");
         Top50Coins = fetchFromApi("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&page=1&per_page=50");
