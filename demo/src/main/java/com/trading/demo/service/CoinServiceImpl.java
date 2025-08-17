@@ -205,13 +205,23 @@ public class CoinServiceImpl implements CoinService {
     @Scheduled(fixedRate = 300000) // 5 minutes
     public void refreshesCache() {
         try {
+            if (trendingCache == null)
+                trendingCache = "[]";
+            if (Top50Coins == null)
+                Top50Coins = "[]";
+
             trendingCache = fetchFromApiSafe("https://api.coingecko.com/api/v3/search/trending");
             Top50Coins = fetchFromApiSafe(
                     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&page=1&per_page=50");
+
+            // Coin list cache safely clear
             coinListCache.clear();
-            System.out.println("Scheduler caches refreshed safely");
+
+            System.out.println("Scheduler caches refreshed safely at " + java.time.LocalTime.now());
         } catch (Exception e) {
-            System.out.println("Scheduler error, using old cached data: " + e.getMessage());
+            // Exception ko completely catch kar diya, scheduler crash nahi hoga
+            System.err.println("Scheduler error, using old cached data: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
