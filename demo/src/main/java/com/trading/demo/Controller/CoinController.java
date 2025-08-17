@@ -77,5 +77,4 @@ public class CoinController {
         return ResponseEntity.ok(jsonNode);
 
     }
-
 }
