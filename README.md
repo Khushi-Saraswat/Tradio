@@ -16,7 +16,7 @@ A full-stack cryptocurrency trading platform simulating buy/sell, portfolio mana
   - Two-Factor Authentication (2FA)
   - Role-based access (Admin/User)
 - Forgot Password with Email OTP
-- Mock trading + scheduler for portfolio updates
+- Mock trading(data) + scheduler for portfolio updates
 
 ---
 
