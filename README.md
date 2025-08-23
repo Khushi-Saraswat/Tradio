@@ -82,7 +82,7 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 ![Admin Withdrawals](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/adminwithdrawls.PNG)
 
 
-**Demo Video:** [Watch on LinkedIn](https://www.linkedin.com/posts/sanya-dureja-13960122a_i-am-thrilled-to-share-that-i-have-successfully-activity-7086478696378724352-QwEw?utm_source=share&utm_medium=member_desktop)  
+
 
 ---
 
