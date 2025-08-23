@@ -36,7 +36,7 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 - **Search Coin:** Fetch live coin details from CoinGecko API.  
 - **ChatBot:** Ask crypto-related questions (price, market cap, volume, rank, supply) using a manual logic-based chatbot.  
 - **Authentication & Security:** JWT, backend OAuth2, 2FA, role-based access.
-- - **Admin Withdrawal Management:** Admin can review and approve/reject withdrawal requests from all users. Virtual wallet balances and transaction history are updated automatically.
+- **Admin Withdrawal Management:** Admin can review and approve/reject withdrawal requests from all users. Virtual wallet balances and transaction history are updated automatically.
 
 
 ---
