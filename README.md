@@ -32,8 +32,10 @@ A full-stack cryptocurrency trading platform simulating buy/sell, portfolio mana
 
 Frontend (React.js + Redux)
 ↓
+
 Backend REST API (Spring Boot + MySQL + JWT + OAuth2)
 ↑
+
 CoinGecko API for live coin data
 
 Razorpay API for wallet top-up simulation
