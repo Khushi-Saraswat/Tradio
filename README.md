@@ -23,7 +23,7 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 - Used **Spring Scheduler** to simulate portfolio updates and market fluctuations based on **mock data**.  
 - Designed a clean **dashboard for portfolio management, transaction history, and coin search**.  
 - Implemented a **manual logic-based ChatBot** to answer crypto-related questions (price, market cap, volume, rank, supply).
-- 
+  
 
 ---
 
