@@ -13,34 +13,35 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 ---
 
 ## 📄 Project Description
--Developed a full-stack cryptocurrency trading platform using React.js for the frontend and Spring Boot for the backend.
--Integrated CoinGecko API to fetch real-time cryptocurrency data.
--Implemented buy/sell simulation for crypto trading using mock data without real money transactions.
--Built wallet functionality: virtual balance top-up, wallet-to-wallet transfer, and withdrawal simulation.
--Implemented JWT-based authentication, backend-only OAuth2 login with Google, and role-based access (Admin/User).
--Added Two-Factor Authentication (2FA) and Forgot Password via Email OTP.
--Used Spring Scheduler to simulate portfolio updates and market fluctuations based on mock data.
--Designed a clean dashboard for portfolio management, transaction history, and coin search.
+
+- Developed a **full-stack cryptocurrency trading platform** using React.js for the frontend and Spring Boot for the backend.  
+- Integrated **CoinGecko API** to fetch real-time cryptocurrency data.  
+- Implemented **buy/sell simulation** for crypto trading using **mock data** without real money transactions.  
+- Built **wallet functionality**: virtual balance top-up, wallet-to-wallet transfer, and withdrawal simulation.  
+- Implemented **JWT-based authentication**, backend-only OAuth2 login with Google, and role-based access (Admin/User).  
+- Added **Two-Factor Authentication (2FA)** and Forgot Password via Email OTP.  
+- Used **Spring Scheduler** to simulate portfolio updates and market fluctuations based on **mock data**.  
+- Designed a clean **dashboard for portfolio management, transaction history, and coin search**.  
+- Implemented a **manual logic-based ChatBot** to answer crypto-related questions (price, market cap, volume, rank, supply).  
 
 ---
 
 ## 📈 Features
 
-- **Buy & Sell Crypto**: Simulate trading with real-time prices.  
-- **Portfolio Management**: Track holdings, balance, profit/loss, coin-wise distribution.  
-- **Wallet Functionality**: Top-up, transfer, withdraw simulated currency.  
-- **Transaction History**: Logs for all wallet activities and withdrawals.  
-- **Search Coin**: Fetch live coin details from CoinGecko API.  
-- **ChatBot**: Ask crypto-related questions (price, market cap, volume, rank, supply) using a **manual logic-based chatbot**.  
-- **Authentication & Security**: JWT, backend OAuth2, 2FA, role-based access.
-
+- **Buy & Sell Crypto:** Simulate trading with real-time prices.  
+- **Portfolio Management:** Track holdings, balance, profit/loss, coin-wise distribution.  
+- **Wallet Functionality:** Top-up, transfer, withdraw simulated currency.  
+- **Transaction History:** Logs for all wallet activities and withdrawals.  
+- **Search Coin:** Fetch live coin details from CoinGecko API.  
+- **ChatBot:** Ask crypto-related questions (price, market cap, volume, rank, supply) using a manual logic-based chatbot.  
+- **Authentication & Security:** JWT, backend OAuth2, 2FA, role-based access.  
 
 ---
 
 ## 🌐 Dataset / API
 
-- Coin data: [CoinGecko API](https://www.coingecko.com/en/api) – free, no API key required.  
-- Payment simulation: Razorpay API (for virtual top-ups).  
+- **Coin data:** [CoinGecko API](https://www.coingecko.com/en/api) – free, no API key required.  
+- **Payment simulation:** Razorpay API (for virtual top-ups).  
 
 ---
 
@@ -50,7 +51,7 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 ![Home Page](screenshots/homepage.png)  
 
 **Portfolio Dashboard**  
-![Portfolio](screenshots/portfolio.png)  
+![Portfolio Dashboard](screenshots/portfolio.png)  
 
 **Buy/Sell Crypto**  
 ![Buy/Sell](screenshots/buy_sell.png)  
