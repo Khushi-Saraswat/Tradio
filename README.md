@@ -86,10 +86,48 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 
 ---
 
-## ⚙️ How to Run Locally
+## ⚙️ How to Run Locally  
 
-### Backend
+### 🔹 Backend  
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
+
+OR (Windows PowerShell)
+cd backend
+mvnw spring-boot:run
+
+
+
+🔹 Frontend
+cd trading
+npm install
+npm start
+
+/
+
+🗄️ Database Setup (PostgreSQL)
+
+Install PostgreSQL & start service
+
+Open terminal and login:
+
+psql -U postgres
+
+
+Create database:
+
+CREATE DATABASE trading_platform;
+
+
+Update application.properties (backend):
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/trading_platform
+spring.datasource.username=postgres
+spring.datasource.password=yourpassword
+
+
+
+
+
