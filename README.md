@@ -35,7 +35,7 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 
 - **Buy & Sell Crypto:** Simulate trading with real-time prices.  
 - **Portfolio Management:** Track holdings, balance, profit/loss, coin-wise distribution.  
-- **Wallet Functionality:** Top-up, transfer, withdraw simulated currency.  
+- **Wallet Functionality:** Top-up, transfer, withdraw simulated currency via **Razorpay test account**.
 - **Transaction History:** Logs for all wallet activities and withdrawals.  
 - **Search Coin:** Fetch live coin details from CoinGecko API.  
 - **ChatBot:** Ask crypto-related questions (price, market cap, volume, rank, supply) using a manual logic-based chatbot.  
