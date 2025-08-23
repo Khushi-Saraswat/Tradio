@@ -128,6 +128,11 @@ spring.datasource.username=postgres
 spring.datasource.password=yourpassword
 
 
+razorpay.key_id=your_test_key
+razorpay.key_secret=your_test_secret
+
+
+
 
 
 
