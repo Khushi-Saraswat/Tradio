@@ -22,7 +22,8 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 - Added **Two-Factor Authentication (2FA)** and Forgot Password via Email OTP.  
 - Used **Spring Scheduler** to simulate portfolio updates and market fluctuations based on **mock data**.  
 - Designed a clean **dashboard for portfolio management, transaction history, and coin search**.  
-- Implemented a **manual logic-based ChatBot** to answer crypto-related questions (price, market cap, volume, rank, supply).  
+- Implemented a **manual logic-based ChatBot** to answer crypto-related questions (price, market cap, volume, rank, supply).
+- 
 
 ---
 
@@ -34,7 +35,9 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 - **Transaction History:** Logs for all wallet activities and withdrawals.  
 - **Search Coin:** Fetch live coin details from CoinGecko API.  
 - **ChatBot:** Ask crypto-related questions (price, market cap, volume, rank, supply) using a manual logic-based chatbot.  
-- **Authentication & Security:** JWT, backend OAuth2, 2FA, role-based access.  
+- **Authentication & Security:** JWT, backend OAuth2, 2FA, role-based access.
+- - **Admin Withdrawal Management:** Admin can review and approve/reject withdrawal requests from all users. Virtual wallet balances and transaction history are updated automatically.
+
 
 ---
 
@@ -47,8 +50,8 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 
 ## 🎬 Walkthrough / Demo
 
-**Home Page**  
-![Home Page](screenshots/homepage.png)  
+**Login Page**  
+
 
 **Portfolio Dashboard**  
 ![Portfolio Dashboard](screenshots/portfolio.png)  
