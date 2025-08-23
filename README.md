@@ -27,9 +27,3 @@ A full-stack cryptocurrency trading platform simulating buy/sell, portfolio mana
 **APIs:** CoinGecko (live coin data), Razorpay (simulated top-up)  
 
 ---
-
-## 🛠 Architecture
-
-Spring Boot (REST API) ←→ MySQL (Data) ←→ React.js (Frontend)
-           ↑                        ↑
-       CoinGecko API           Razorpay API (for virtual top-ups)
