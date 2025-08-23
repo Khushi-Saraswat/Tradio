@@ -6,34 +6,18 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 
 ## 🚀 Features
 
-### 🔁 Buy & Sell Crypto
-- User-friendly UI for buying/selling a wide array of cryptocurrencies.
-- Coin data fetched in real-time using **CoinGecko API**.
-- Manual trade simulation (no real money involved).
+- Buy/Sell Crypto (simulation, CoinGecko API)
+- Portfolio Management (track balance, profit/loss)
+- Wallet Functionality (top-up, transfer, withdrawal simulation)
+- Transaction History (wallet & withdrawals)
+- Authentication & Security:
+  - JWT-based login
+  - Backend-only Google OAuth2
+  - Two-Factor Authentication (2FA)
+  - Role-based access (Admin/User)
+- Forgot Password with Email OTP
+- Mock trading + scheduler for portfolio updates
 
-### 📊 Portfolio Management
-- Track current holdings and investment performance.
-- View total balance, profit/loss, and coin-wise distribution.
-
-### 💼 Wallet Functionality
-- **Wallet to Wallet Transfer** – Send crypto to other users securely.
-- **Add Balance** – Top-up wallet with virtual INR/USD.
-- **Withdraw to Bank** – Simulated bank withdrawal functionality.
-
-### 🧾 Transaction History
-- **Wallet History** – Logs for all deposits, buys, sells, transfers.
-- **Withdrawal History** – View and track past withdrawals.
-
-### 🔍 Search Coin
-- Search and view details of any cryptocurrency using live data from **CoinGecko API**.
-
-### 🔐 Authentication & Security
-- **Login / Register**
-- **Forgot Password** with email OTP (JavaMailSender)
-- **Two-Factor Authentication (2FA)** using OTP
-- Role-based access control (Admin/User)
-
----
 
 ## 🧠 Architecture Overview
 
