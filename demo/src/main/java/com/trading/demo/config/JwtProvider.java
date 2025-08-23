@@ -1,16 +1,18 @@
 package com.trading.demo.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-
-import javax.crypto.SecretKey;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.crypto.SecretKey;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 
 public class JwtProvider {
 
@@ -24,7 +26,7 @@ public class JwtProvider {
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(new Date().getTime() + 86400000))
 				.claim("email", auth.getName())
-				.claim("authorities", roles)
+				.claim("authorities", roles.isEmpty() ? "ROLE_USER" : roles)
 				.signWith(key)
 				.compact();
 		return jwt;
