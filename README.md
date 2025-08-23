@@ -54,17 +54,33 @@ A full-stack cryptocurrency trading platform that allows users to buy/sell crypt
 
 ## 🎬 Walkthrough / Demo
 
-**Login Page**  
+## 🏠 Home Page  
+![Home](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/home.PNG)
 
+## 🔐 Login Page  
+![Login](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/login.PNG)
 
-**Portfolio Dashboard**  
-![Portfolio Dashboard](screenshots/portfolio.png)  
+## 💳 Payment Page  
+![Payment](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/payment.PNG)
 
-**Buy/Sell Crypto**  
-![Buy/Sell](screenshots/buy_sell.png)  
+## 📊 Portfolio  
+![Portfolio](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/portfolio.PNG)
 
-**Transaction History**  
-![Transaction History](screenshots/transaction_history.png)  
+## 👤 Profile  
+![Profile](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/profile.PNG)
+
+## 👛 Wallet  
+![Wallet](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/wallet.PNG)
+
+## 📈 Watchlist  
+![Watchlist](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/watchlist.PNG)
+
+## 📑 Details  
+![Details](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/details.PNG)
+
+## 🛠️ Admin Withdrawals  
+![Admin Withdrawals](https://raw.githubusercontent.com/Khushi-Saraswat/Tradio/main/trading/public/adminwithdrawls.PNG)
+
 
 **Demo Video:** [Watch on LinkedIn](https://www.linkedin.com/posts/sanya-dureja-13960122a_i-am-thrilled-to-share-that-i-have-successfully-activity-7086478696378724352-QwEw?utm_source=share&utm_medium=member_desktop)  
 
