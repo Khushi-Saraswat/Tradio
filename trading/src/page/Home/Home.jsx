@@ -4,7 +4,7 @@ import {
   fetchCoinDetails,
   fetchCoinList,
   fetchTreadingCoinList,
-  getTop50CoinList,
+  getTop50CoinList
 } from "@/State/Coin/Action";
 import SpinnerBackdrop from "@/components/custome/SpinnerBackdrop";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -27,15 +27,20 @@ import {
 import { MessageCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+//import { useParams } from "react-router-dom";
 import { AssetTable } from "./AssetTable";
 import StockChart from "./StockChart";
 
  const Home = () => {
+
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState("all");
   const { coin, chatBot, auth } = useSelector((store) => store);
   const [isBotRelease, setIsBotRelease] = useState(false); //
+ 
+
+  // store for API requests
 
   useEffect(() => {
     dispatch(fetchCoinList(page));
@@ -199,23 +204,23 @@ import StockChart from "./StockChart";
               </div>
               <div className="flex items-end gap-2">
                 <p className="text-xl font-bold">
-                  {coin.coinDetails?.market_data.current_price.usd}
+                  {coin.coinDetails?.market_data?.current_price?.usd}
                 </p>
                 <p
                   className={`${
-                    coin.coinDetails?.market_data.market_cap_change_24h < 0
+                    coin.coinDetails?.market_data?.market_cap_change_24h < 0
                       ? "text-red-600"
                       : "text-green-600"
                   }`}
                 >
                   <span className="">
-                    {coin.coinDetails?.market_data.market_cap_change_24h}
+                    {coin.coinDetails?.market_data?.market_cap_change_24h}
                   </span>
                   <span>
                     (
                     {
                       coin.coinDetails?.market_data
-                        .market_cap_change_percentage_24h
+                        ?.market_cap_change_percentage_24h
                     }
                     %)
                   </span>
@@ -305,6 +310,7 @@ import StockChart from "./StockChart";
         </div>
       </section>
     </div>
-  );
+);
+
 };
 export default Home;

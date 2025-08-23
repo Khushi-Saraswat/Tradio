@@ -36,7 +36,8 @@ const routes = [
   { path: "/watchlist", role: "ROLE_USER" },
   { path: "/profile", role: "ROLE_USER" },
   { path: "/search", role: "ROLE_USER" },
-  { path: "/admin/withdrawal", role: "ROLE_ADMIN" }
+  { path: "/admin/withdrawal", role: "ROLE_ADMIN"},
+  
 ];
 
 function App() {
@@ -75,7 +76,7 @@ function App() {
          {showNavbar && <Navbar />}
           <Routes>
             <Route element={<Home />} path="/" />
-            
+        
             <Route element={<Portfolio />} path="/portfolio" />
             <Route element={<Activity />} path="/activity" />
             <Route element={<Wallet />} path="/wallet" />

@@ -9,6 +9,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog"
 
+import { fetchCoinDetails } from '@/State/Coin/Action'
 import { addItemToWatchlist, getUserWatchlist } from '@/State/WatchList/Action'
 import { existInWatchlist } from '@/utils/existInWatchList'
 import { AvatarImage } from '@radix-ui/react-avatar'
@@ -26,16 +27,17 @@ const StockDetails = () => {
     
   const dispatch=useDispatch()
    const {id}=useParams()
+   console.log(id+"id");
 
    const { coin ,watchlist} = useSelector(store => store);
 
    useEffect(()=>{
-        dispatch(fetchCoinsDetails({coinId:id,jwt:localStorage.getItem("jwt")}))
+        dispatch(fetchCoinDetails({coinId:id,jwt:localStorage.getItem("jwt")}))
         dispatch(getUserWatchlist({jwt:localStorage.getItem("jwt")}))
    },[id])
     console.log("coin",coin)
 
-    console.log(coin.coinDetails?.id,"coinid");
+   // console.log(coin.coinDetails?.id,"coinid");
 
     const handleAddToWatchlist = () => {
        dispatch(addItemToWatchlist({coinId:coin.coinDetails?.id,jwt:localStorage.getItem("jwt")}))
@@ -44,9 +46,10 @@ const StockDetails = () => {
 
 
 
+console.log(coin.coinDetails?.image.large);
+console.log( coin.coinDetails?.market_data?.current_price?.usd);
 
-
-  
+//  console.log(coin.coinDetails.id)
 
    return (
     <div className='p-5 mt-5'>
@@ -55,7 +58,7 @@ const StockDetails = () => {
           <div>
           <Avatar>
             <AvatarImage
-              src={coin.coinDetails?.image.large}
+              src={coin.coinDetails?.image}
               />
              </Avatar>
           </div>
@@ -69,12 +72,13 @@ const StockDetails = () => {
             <div className='flex items-end gap-2'>
                <p className='text-xl font-bold'>$
                 {
-                  coin.coinDetails?.market_data.current_price.usd
+                              coin.coinDetails?.current_price
                 }
                </p>
                <p className='text-red-600'>
-               <span>-{ coin.coinDetails?.market_data.market_cap_change_24h}</span>
-                  <span> (-{coin.coinDetails?.market_data_cap_change_percentage_24h}%)</span>
+                <span>-{coin.coinDetails?.market_cap_change_24h}</span>
+  <span> (-{coin.coinDetails?.market_cap_change_percentage_24h}%)</span>
+
                 
                </p>
             </div>

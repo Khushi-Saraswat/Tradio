@@ -1,19 +1,12 @@
 import api from "@/config/api";
 import { FETCH_COIN_BY_ID_FAILURE, FETCH_COIN_BY_ID_REQUEST, FETCH_COIN_BY_ID_SUCCESS, FETCH_COIN_DETAILS_FAILURE, FETCH_COIN_DETAILS_REQUEST, FETCH_COIN_DETAILS_SUCCESS, FETCH_COIN_LIST_FAILURE, FETCH_COIN_LIST_REQUEST, FETCH_COIN_LIST_SUCCESS, FETCH_MARKET_CHART_FAILURE, FETCH_MARKET_CHART_REQUEST, FETCH_MARKET_CHART_SUCCESS, FETCH_TOP_50_COINS_FAILURE, FETCH_TOP_50_COINS_REQUEST, FETCH_TOP_50_COINS_SUCCESS, FETCH_TRADING_COINS_FAILURE, FETCH_TRADING_COINS_REQUEST, FETCH_TRADING_COINS_SUCCESS, SEARCH_COIN_FAILURE, SEARCH_COIN_REQUEST, SEARCH_COIN_SUCCESS } from "./ActionType";
 
-
-
-
-
-
-
-
 export const fetchCoinList = (page) => async (dispatch) => {
     dispatch({ type: FETCH_COIN_LIST_REQUEST });
     try {
-      const response = await api.get(`${API_BASE_URL}/coins?page=${page}`);
+      const response = await api.get(`/coins?page=${page}`);
       dispatch({ type: FETCH_COIN_LIST_SUCCESS, payload: response.data });
-      console.log("-------",response.data)
+      console.log("fetchlist",response.data)
     } catch (error) {
         console.log("error",error)
       dispatch({ type: FETCH_COIN_LIST_FAILURE, payload: error.message });
@@ -23,7 +16,7 @@ export const fetchCoinList = (page) => async (dispatch) => {
   export const getTop50CoinList = () => async (dispatch) => {
     dispatch({ type: FETCH_TOP_50_COINS_REQUEST });
     try {
-      const response = await api.get(`${API_BASE_URL}/coins/top50`);
+      const response = await api.get(`/coins/top50`);
       dispatch({ type: FETCH_TOP_50_COINS_SUCCESS, payload: response.data });
       console.log("top 50",response.data)
     } catch (error) {
@@ -35,7 +28,7 @@ export const fetchCoinList = (page) => async (dispatch) => {
   export const fetchTreadingCoinList = () => async (dispatch) => {
     dispatch({ type: FETCH_TRADING_COINS_REQUEST });
     try {
-      const response = await api.get(`${API_BASE_URL}/coins/trading`);
+      const response = await api.get(`/coins/trading`);
       dispatch({ type: FETCH_TRADING_COINS_SUCCESS, payload: response.data });
       console.log("trading coins",response.data)
     } catch (error) {
@@ -52,7 +45,9 @@ export const fetchCoinList = (page) => async (dispatch) => {
           Authorization: `Bearer ${jwt}`
         }
       });
+      console.log("fetchMarketChart",response);
       dispatch({ type: FETCH_MARKET_CHART_SUCCESS, payload: response.data });
+
     } catch (error) {
       console.log("error",error)
       dispatch({ type: FETCH_MARKET_CHART_FAILURE, payload: error.message });
@@ -80,7 +75,7 @@ export const fetchCoinList = (page) => async (dispatch) => {
         }
       });
       dispatch({ type: FETCH_COIN_DETAILS_SUCCESS, payload: response.data });
-      console.log("coin details", response.data)
+      console.log("coin details in fetchcoindetails", response.data)
     } catch (error) {
       console.log("error",error)
       dispatch({ type: FETCH_COIN_DETAILS_FAILURE, payload: error.message });
